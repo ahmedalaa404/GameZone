@@ -4,11 +4,11 @@ using System.Reflection.Emit;
 
 namespace GameZone.Data
 {
-    public class ApplicationDbContext:DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> Options):base(Options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> Options) : base(Options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

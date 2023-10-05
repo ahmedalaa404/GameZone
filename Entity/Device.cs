@@ -1,9 +1,9 @@
 ﻿namespace GameZone.Entity
 {
-    public class Device:BaseEntity
+    public class Device : BaseEntity
     {
 
-        public string Icone { get; set; }=string.Empty;
+        public string Icone { get; set; } = string.Empty;
 
     }
 }

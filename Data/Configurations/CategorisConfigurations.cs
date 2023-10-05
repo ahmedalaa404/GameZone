@@ -13,7 +13,7 @@
                 new Categoris() {Id= 5,Name= "Fightng"},
                 new Categoris() {Id= 6,Name= "Film"},
 
-                     
+
             });
         }
     }
