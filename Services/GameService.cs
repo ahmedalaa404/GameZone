@@ -33,8 +33,16 @@ namespace GameZone.Services
                 CategoreyId= Model.CategoreyId,
                 Devices=Model.SelectedDevices.Select(d=> new GameDevice() { DeviceId=d} ).ToList(),
             };
-          await  context.AddAsync(Game);
+            await  context.AddAsync(Game);
             await context.SaveChangesAsync();
+        }
+
+
+
+      public async Task<IEnumerable<Game>> GetAll()
+        {
+           var Data=await context.Games.AsNoTracking().Include(x=>x.Categorey).Include(x=>x.Devices).ThenInclude(x=>x.Device) .ToListAsync(); // To make Not Tracking
+            return Data;
         }
     }
 }

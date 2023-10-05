@@ -1,8 +1,53 @@
-﻿@{
+﻿@model IEnumerable<Game>
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
+@{
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    if (Model is not null)
+    {
+        <div class="row mt-5">
+            @foreach (var Game in Model)
+            {
+                <div class="col-lg-4 col-md-6 my-2">
+                    <a class="card border-success mb-2 text-decoration-none" asp-action="Details" asp-controller="Games" asp-route-id="@Game.Id">
+                       
+                            <div class="card-body" style="background-image:url(@($"{FileSetting.ImagesPath}/{Game.Cover}")); height:500px"></div>
+                        <div class="d-flex justify-content-center align-items-center h-100">
+                            <span class="badge rounded-pill bg-info">@Game.Categorey.Name</span>
+                    </div>
+
+                        <div class="card-body p-1">
+                            <div class="d-flex justify-content-between">
+                                <div class="w-50 text-center">
+                                    <h5 class="card-title">@Game.Name</h5>
+                                </div>
+
+                                <div class="d-flex w-50 justify-content-center">
+                                    @foreach (var item in Game.Devices)
+                                    {
+                                        <i class="@item.Device.Icone text-muted fs-5 mx-1"></i>
+                                    }
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-dark my-5">
+            <h4 class="alert-heading">No Games Here</h4>
+            <p class="mb-0"> No Games Add Yet.</p>
+        </div>
+    }
+
+
+}

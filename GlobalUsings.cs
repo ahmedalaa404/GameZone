@@ -11,3 +11,6 @@ global using GameZone.Services;
 global using System.IO;
 global using System.IO.Pipelines;
 global using GameZone.Settings; 
+
+global using GameZone.Models;
+global using System.Diagnostics;

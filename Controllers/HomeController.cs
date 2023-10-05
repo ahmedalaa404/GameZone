@@ -1,21 +1,31 @@
-﻿using GameZone.Models;
-using System.Diagnostics;
+﻿
 
 namespace GameZone.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IGameService gameService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger , IGameService gameService)
         {
             _logger = logger;
+            this.gameService = gameService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var Model =await gameService.GetAll();
+            return View(Model);
         }
+
+
+
+
+
+
+
+
 
         public IActionResult Privacy()
         {

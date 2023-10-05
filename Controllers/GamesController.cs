@@ -3,6 +3,7 @@
 
 
 using GameZone.Entity;
+using GameZone.Services;
 
 namespace GameZone.Controllers
 {
@@ -20,8 +21,19 @@ namespace GameZone.Controllers
         }
 
 
-        public IActionResult Index()
-        { return View(); }
+        public async Task<IActionResult> Index()
+        {
+            var Model = await gameServices.GetAll();
+            return View(Model);
+        }
+
+
+
+
+
+
+
+
 
 
 
@@ -54,6 +66,9 @@ namespace GameZone.Controllers
             await gameServices.Create(Model);
             return RedirectToAction(nameof(Index));
         }
+
+
+
 
 
 
