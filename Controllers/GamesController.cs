@@ -10,9 +10,9 @@ namespace GameZone.Controllers
     {
         
         private readonly ICategorieyServices categories;
-        private readonly IGameServices gameServices;
+        private readonly IGameService gameServices;
 
-        public GamesController(ICategorieyServices Categories,IGameServices GameServices)
+        public GamesController(ICategorieyServices Categories,IGameService GameServices)
         {
 
             categories = Categories;

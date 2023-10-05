@@ -10,3 +10,4 @@ global using Microsoft.AspNetCore.Mvc.Rendering;
 global using GameZone.Services;
 global using System.IO;
 global using System.IO.Pipelines;
+global using GameZone.Settings; 

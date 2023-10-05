@@ -1,17 +1,19 @@
 ﻿
 
+
+
 namespace GameZone.Services
 {
-    public class GameServices : IGameServices
+    public class GameService : IGameService
     {
         private readonly ApplicationDbContext context;
         private readonly IWebHostEnvironment webHostEnv; //To Get Location In Env
         private readonly string ImagesPath;
-        public GameServices(ApplicationDbContext Context ,IWebHostEnvironment WebHostEnv)
+        public GameService(ApplicationDbContext Context ,IWebHostEnvironment WebHostEnv)
         {
             context = Context;
             webHostEnv = WebHostEnv;
-            ImagesPath = $"{WebHostEnv.WebRootPath}/assets/images/Games";
+            ImagesPath = $"{WebHostEnv.WebRootPath}{FileSetting.ImagesPath}";
         }
         public async Task Create(CreateGameFromViewModel Model)
         {
@@ -22,7 +24,7 @@ namespace GameZone.Services
             var path = Path.Combine(ImagesPath, CoverName);
             using var Stream=File.Create(path);
             await Model.Cover.CopyToAsync(Stream);
-s
+
             var Game = new Game()
             {
                 Name = Model.Name,
