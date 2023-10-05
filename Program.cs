@@ -6,7 +6,7 @@ var ConnectionsString = builder.Configuration.GetConnectionString("GameZone") ??
     throw new InvalidOperationException("Not Have Connection String");
 builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(ConnectionsString));
 builder.Services.AddScoped<ICategorieyServices, CategorieyServices>();
-builder.Services.AddScoped<IGameService, GameServices>();
+builder.Services.AddScoped<IGameService, GameService>();
 
 #endregion
 

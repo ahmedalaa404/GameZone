@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using GameZone.Attributes;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Runtime.CompilerServices;
 
 namespace GameZone.ViewModels
@@ -23,6 +24,8 @@ namespace GameZone.ViewModels
         public IEnumerable<SelectListItem>Devices { get; set; }=Enumerable.Empty<SelectListItem>();
 
         //[Extension("")] // Make Errot In Mvc With Render
+        [AllowExtenstion(FileSetting.AllowExtenstions),
+            MaxFileSize(FileSetting.MaxFileSizeBytes)]
         public IFormFile Cover { get; set; } = default!; // It`s fILES
         public string Description { get; set; } = string.Empty;
 
