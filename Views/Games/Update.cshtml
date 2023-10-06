@@ -1,0 +1,90 @@
+﻿@model EditeGameModelView;
+@{
+    ViewData["Title"] = $"Update {Model.Name}";
+}
+
+<div class="center d-flex justify-content-center my-5">
+    <p>
+        <i class="bi bi-plus-circle text-success"></i>
+        Add New Game
+    </p>
+</div>
+
+<div asp-validation-summary="All" class="text-danger">
+</div>
+
+<form asp-controller="Games" enctype="multipart/form-data" asp-action="Update">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group my-2">
+                <label asp-for="Name" class="form-label mt-4"></label>
+                <input asp-for="Name" class="form-control" type="text" placeholder="Enter Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group my-2">
+                <label asp-for="CategoreyId" class="form-label mt-4"></label>
+                <select class="form-select" asp-for="CategoreyId" asp-items="Model.Categores" data-placeholder="Select Category" data-minimum-Results-For-Search="Infinity">
+                </select>
+                <span asp-validation-for="CategoreyId" class="text-danger">  </span>
+            </div>
+
+
+
+            <div class="form-group my-2">
+                <label asp-for="SelectedDevices" class="form-label mt-4"></label>
+                <select class="form-select" multiple asp-for="SelectedDevices" asp-items="Model.Devices" data-placeholder="Select Devices">
+                    <option value="">Select Devices </option>
+                </select>
+                <span asp-validation-for="SelectedDevices" class="text-danger">  </span>
+            </div>
+
+
+            <div class="form-group my-2">
+                <label asp-for="Description" class="form-label mt-4"></label>
+                <textarea asp-for="Description" class="form-control" type="text"></textarea>
+                <span asp-validation-for="Description" class="text-danger">  </span>
+            </div>
+
+
+            <div class="form-group my-2">
+                <label asp-for="Cover" class="form-label mt-4"></label>
+                <input asp-for="Cover" class="form-control" type="file"
+                       data-rule-extension="@FileSetting.AllowExtenstions.Replace(".",string.Empty)"
+                       data-msg-extenstion="No Allow Extenstion"
+                       data-rule-FileSize="@FileSetting.MaxFileSizeBytes"
+                       data-msg-FileSize="Must Size Less @FileSetting.MaxFileSizeMb">
+                <small class="form-text text-muted">onely @FileSetting.AllowExtenstions Files Are Allow With Max Size @FileSetting.MaxFileSizeMb mb</small>
+
+                <span asp-validation-for="Cover" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-secondary">Save</button>
+        </div>
+
+
+
+
+        <div class="col-md-6">
+            <img src="@($"{FileSetting.ImagesPath}/{@Model.CurrentCover}")" alt="@Model.Cover" class="CoverPreview" />
+
+
+
+        </div>
+
+    </div>
+
+</form>
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial.cshtml" />
+    <script src="~/js/filesize_validatore.js" asp-append-version="true"></script>
+    @* to reflect Any Change in this Time *@
+    <script src="~/js/game_form.js" asp-append-version="true"></script>
+
+
+
+
+}

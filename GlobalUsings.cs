@@ -14,3 +14,6 @@ global using GameZone.Settings;
 
 global using GameZone.Models;
 global using System.Diagnostics;
+global using GameZone.Attributes;
+global using Microsoft.AspNetCore.Mvc.Rendering;
+global using System.Runtime.CompilerServices;
