@@ -135,13 +135,16 @@ namespace GameZone.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult Delete([FromRoute]int Id,int id) 
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromRoute]int Id,int id) 
         {
             if (id != Id)
                 return BadRequest(id);
-            var model = gameServices.GetById(id).Result;
-            return View(model);
+
+            var IsDelete= await gameServices.Delete(id);
+
+            return IsDelete?Ok():BadRequest();
+
 
         }
 

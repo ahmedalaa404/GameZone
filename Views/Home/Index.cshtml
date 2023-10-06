@@ -6,7 +6,7 @@
 }
 @{
 
-    if (@Model is not null)
+    if (Model.Any())
     {
         <div class="row mt-5">
             @foreach (var Game in Model)
@@ -43,9 +43,18 @@
     }
     else
     {
-        <div class="alert alert-dark my-5">
-            <h4 class="alert-heading">No Games Here</h4>
-            <p class="mb-0"> No Games Add Yet.</p>
+        <div class="alert alert-dark mt-5">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h4 class="alert-heading">No Games Here</h4>
+                    <p class="mb-0"> No Games Add Yet.</p>
+                </div>
+                <a asp-controller="Games" asp-action="Create"> 
+                <button class="btn btn-primary">Create Game</button>
+                </a>
+
+            </div>
+
         </div>
     }
 

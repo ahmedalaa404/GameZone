@@ -51,9 +51,8 @@ namespace GameZone.Services
 
         public async Task<Game?> Update(EditeGameModelView game)
         {
-            var hasNewCover = game.Cover is not null;
 
-            var Game = context.Games.Where(x=>x.Id==game.Id).Include(X=>X.Devices).FirstOrDefault();
+            var Game = context.Games.Where(x=>x.Id==game.Id).Include(X=>X.Devices).SingleOrDefault();
 
 
 
@@ -61,22 +60,28 @@ namespace GameZone.Services
 
             if (Game is null)
                 return null;
+            var hasNewCover = game.Cover is not null;
+
             var OldCover = Game.Cover;
             Game.Description = game.Description;
             Game.Name = game.Name;
             Game.CategoreyId = game.CategoreyId;
             Game.Devices = game.SelectedDevices.Select(x => new GameDevice { DeviceId = x }).ToList();
+            if (hasNewCover)
+            {
+                Game.Cover = await SaveCover(game.Cover!);
+
+            }
+
             var RowEffict = context.SaveChanges();
-
-            var NewCoverName = await SaveCover(game.Cover!);
-     
-
 
             if (RowEffict > 0)
             {
                 if (hasNewCover)
                 {
                     await RemoveCoverOld($"{ImagesPath}/{OldCover}");
+                   
+
                 }
                 return Game;
             }
@@ -88,6 +93,34 @@ namespace GameZone.Services
 
 
         }
+
+
+        public async  Task<bool> Delete(int id)
+        {
+
+            var IsDelete = false;
+
+            var Game = context.Games.Find(id);
+            if(Game is null) return IsDelete;
+            var FullPath = $"{ImagesPath}/{Game.Cover}";
+
+            context.Games.Remove(Game);
+            var EffictiveRows = context.SaveChanges();
+
+
+            if(EffictiveRows>0)
+            {
+                IsDelete = true;
+                await RemoveCoverOld(FullPath);
+            }
+            return IsDelete;
+   
+        }
+
+
+
+
+
 
 
         private async Task<string> SaveCover(IFormFile Model)
@@ -104,7 +137,6 @@ namespace GameZone.Services
         {
             File.Delete(AllPath);
         }
-
 
 
     }

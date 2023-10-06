@@ -13,7 +13,8 @@
 }
 @{
 
-    if (@Model is not null)
+
+    if (Model.Any())
     {
         <div class="mt-5">
             <table class="table table-dark ">
@@ -35,7 +36,7 @@
                             <td class="align-middle">
                                 <div class="d-flex justify-content-end">
                                     <a asp-controller="Games" asp-route-id="@item.Id" asp-action="Details" class="btn btn-primary rounded rounded-3 me-2"><i class="bi bi-binoculars fs-4 mx-1"></i>View</a>
-                                    <a asp-controller="Games" asp-route-id="@item.Id" asp-action="Delete" class="btn btn-danger rounded rounded-3 me-2"> <i class="bi bi-trash3-fill text-light"></i> Delete</a>
+                                    <a href="#" class="btn btn-danger rounded rounded-3 me-2 js-delete" data-id="@item.Id"> <i class="bi bi-trash3-fill text-light"></i> Delete</a>
                                     <a asp-controller="Games" asp-route-id="@item.Id" asp-action="Update" class="btn btn-primary rounded rounded-3 me-2"> <i class="bi bi-pencil-square text-light mx-1"></i>Edite</a>
                                 </div>
                             </td>
@@ -55,10 +56,22 @@
     else
     {
         <div class="alert alert-dark mt-5">
-            <h4 class="alert-heading">No Games Here</h4>
-            <p class="mb-0"> No Games Add Yet.</p>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h4 class="alert-heading">No Games Here</h4>
+                    <p class="mb-0"> No Games Add Yet.</p>
+                </div>
+                <a asp-controller="Games" asp-action="Create"> <button class="btn btn-primary">Create Game</button></a>
+
+            </div>
+
         </div>
     }
 
+
+    @section Scripts
+    {
+        <script src="~/js/games-index-delete.js" asp-asp-append-version="true"></script>
+    }
 
 }
